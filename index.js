@@ -57,8 +57,54 @@ const SendMailMarketingHunghacompanyTimviec365 = async (req,res)=>{
     }
 }
 
-app.post('/api/mail/HunghacompanyTimviec365', SendMailMarketingHunghacompanyTimviec365);
+function FSendMailMarketingHunghacompanyTimviec365_v2(title,content,receiver){
+    return new Promise((resolve,reject)=>{
+        let transporter = nodemailer.createTransport({
+            service:'gmail',
+            auth:{
+            user:'uvtimviec365.hh@gmail.com',
+            pass:'xwhohtkonzdcwuyb'
+            }
+        });
+        const mail_config = {
+            from:'uvtimviec365.hh@gmail.com',
+            to:receiver,
+            subject:title,
+            html: `${content}`
+        };
+        transporter.sendMail(mail_config, function(error,info){
+            if(error){
+                console.log(error);
+                return reject({message:"Đã có lỗi xảy ra khi gửi mail"});
+            };
+            return resolve({message:"Gửi mail thành công"})
+        });
+    })
+}
 
+const SendMailMarketingHunghacompanyTimviec365_v2 = async (req,res)=>{
+    try{
+        console.log(req.body)
+        if(req.body && req.body.title && req.body.content && req.body.receiver){
+            FSendMailMarketingHunghacompanyTimviec365_v2(req.body.title,req.body.content,req.body.receiver)
+            res.json({
+                data:{
+                    result:true
+                },
+                error:null
+            })
+        }
+        else{
+            res.status(200).json(createError(200, "Infor is not valid"));
+        }
+    } catch(e){
+        console.log(e);
+        res.status(200).json(createError(200, "Đã có lỗi xảy ra"));
+    }
+}
+
+app.post('/api/mail/HunghacompanyTimviec365', SendMailMarketingHunghacompanyTimviec365);
+app.post('/api/mail/HunghacompanyTimviec365_v2', SendMailMarketingHunghacompanyTimviec365_v2);
 app.listen(8800,()=>{
     console.log("Backend is running on http://localhost:8800")
 })
