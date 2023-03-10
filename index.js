@@ -23,7 +23,7 @@ function FSendMailMarketingHunghacompanyTimviec365(title,content,receiver){
             service:'gmail',
             auth:{
             user:'nhatuyendungtimviec.hunghacom@gmail.com',
-            pass:'zmmmkufrzjncmfse'
+            pass:'zmmmkufrzjncmfsea'
             }
         });
         const mail_config = {
@@ -69,7 +69,7 @@ function FSendMailMarketingHunghacompanyTimviec365_v2(title,content,receiver){
             service:'gmail',
             auth:{
             user:'uvtimviec365.hh@gmail.com',
-            pass:'xwhohtkonzdcwuyb'
+            pass:'xwhohtkonzdcwuyba'
             }
         });
         const mail_config = {
